@@ -19,7 +19,7 @@ public class FoodTruckApp {
 		Scanner sc = new Scanner(System.in);
 		for (int i = 0; i < 5; i++) {
 
-			System.out.println("Please enter the name for food truck " + (i + 1) + ":");
+			System.out.println("Please enter the name for Food Truck " + (i + 1) + ":");
 			String n = sc.next();
 			sc.nextLine();
 
@@ -90,23 +90,31 @@ public class FoodTruckApp {
 	public String truckNames() {
 		String tn = "";
 		for (int i = 0; i < fleet.length; i++) {
-			String truck = "Food Truck " + (i + 1) + ": " + fleet[i].getName() + "\n";
-			tn += truck;
+			if (fleet[i] != null) {
+				String truck = "Food Truck " + (i + 1) + ": " + fleet[i].getName() + "\n";
+				tn += truck;
+			} else if (fleet[i] == null) {
+				break;
+			}
 		}
 		return tn;
 	}
 
 	public int averageRating() {
+
+		int divisor = 0;
 		int total = 0;
 		for (int i = 0; i < fleet.length; i++) {
 			if (fleet[i] != null) {
 				total += fleet[i].getRating();
-			} else {
-				getMenu();
-
+				divisor = fleet.length;
+			}
+			if (fleet[i] == null) {
+				divisor = i;
+				return (total / divisor);
 			}
 		}
-		return (total / fleet.length);
+		return (total / divisor);
 	}
 
 	public String maxRating() {
@@ -118,8 +126,16 @@ public class FoodTruckApp {
 					max = fleet[i].getRating();
 					maxTruck = fleet[i].toString();
 				}
-			} else
+			} else if (fleet[i] == null) {
+				if (fleet[i - 1].getRating() > max) {
+					max = fleet[i - 1].getRating();
+					maxTruck = fleet[i - 1].toString();
+				}
+				break;
+			} else {
 				getMenu();
+
+			}
 
 		}
 		return maxTruck;
