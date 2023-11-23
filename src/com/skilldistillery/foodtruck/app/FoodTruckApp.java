@@ -61,17 +61,14 @@ public class FoodTruckApp {
 		if (num > 0 && num < 5) {
 			switch (num) {
 			case 1:
-				String tn = truckNames();
-				System.out.println(tn);
+				System.out.println(truckNames());
 				getMenu();
 			case 2:
-				int rating = averageRating();
-				System.out.println(rating);
+				System.out.println(averageRating());
 				getMenu();
 
 			case 3:
-				int max = maxRating();
-				System.out.println(max);
+				System.out.println(maxRating());
 				getMenu();
 
 			case 4:
@@ -112,18 +109,20 @@ public class FoodTruckApp {
 		return (total / fleet.length);
 	}
 
-	public int maxRating() {
+	public String maxRating() {
+		String maxTruck = "";
 		int max = 0;
 		for (int i = 0; i < fleet.length; i++) {
 			if (fleet[i] != null) {
 				if (fleet[i].getRating() > max) {
 					max = fleet[i].getRating();
+					maxTruck = fleet[i].toString();
 				}
 			} else
 				getMenu();
 
 		}
-		return max;
+		return maxTruck;
 
 	}
 }
